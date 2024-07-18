@@ -1,0 +1,27 @@
+-- Defines the block as a platform
+local platform = script.Parent
+
+-- Creates a variable so we know if the platform is touched
+local isTouched = false
+
+-- Creates a "list of instructions" so the block will "fade out"
+local function fade()
+	-- If we arent already touching the block
+	if not isTouched then
+		isTouched = true
+		-- Use a loop to slowly adjust transparency
+		for count = 1, 10 do
+			platform.Transparency = count / 10
+			wait(0.1)
+		end
+		-- Make it so we fall throguh
+		platform.CanCollide = false
+		wait(3)
+		platform.CanCollide = true
+		platform.Transparency = 0
+		-- Our "debounce" variable
+		isTouched = false
+	end
+end
+
+platform.Touched:Connect(fade)
